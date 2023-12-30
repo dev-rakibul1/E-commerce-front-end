@@ -1,0 +1,25 @@
+.manage-table table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.manage-table td,
+.manage-table th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.employee-face {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.manage-table {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

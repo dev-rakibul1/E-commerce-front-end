@@ -1,0 +1,46 @@
+.user-details-container {
+  /* Add styles for the container as needed */
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #eee;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.user-details-columns {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.large-device-column {
+  flex: 1;
+  /* Styles for large devices */
+}
+
+.medium-device-column {
+  flex: 1;
+  /* Styles for medium devices */
+}
+
+.small-device-column {
+  flex: 1;
+  /* Styles for small devices */
+}
+
+@media (max-width: 768px) {
+  .user-details-columns {
+    flex-direction: column;
+  }
+}

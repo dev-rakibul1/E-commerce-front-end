@@ -1,13 +1,173 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.theme-container {
+  max-width: 100%;
+  width: 960px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex-start {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.flex-col {
+  flex-direction: column;
+}
+
+.px-1 {
+  padding: 0 7px;
+}
+.px-2 {
+  padding: 0 14px;
+}
+.py-1 {
+  padding: 7px 0;
+}
+.py-2 {
+  padding: 14px 0;
+}
+.pl-1 {
+  padding-left: 7px;
+}
+.pl-2 {
+  padding-left: 14px;
+}
+.pr-1 {
+  padding-right: 7px;
+}
+.pr-2 {
+  padding-right: 14px;
+}
+
+.mx-1 {
+  margin: 0 7px;
+}
+.mx-2 {
+  margin: 0 14px;
+}
+.my-1 {
+  margin: 7px 0;
+}
+.my-2 {
+  margin: 14px 0;
+}
+
+.ml-1 {
+  margin-left: 7px;
+}
+.ml-2 {
+  margin-left: 14px;
+}
+.mr-1 {
+  margin-right: 7px;
+}
+.mr-2 {
+  margin-right: 14px;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.mt-1 {
+  margin-top: 7px;
+}
+.mt-2 {
+  margin-top: 14px;
+}
+.mb-1 {
+  margin-bottom: 7px;
+}
+.mb-2 {
+  margin-bottom: 14px;
+}
+.pt-1 {
+  margin-top: 7px;
+}
+.pt-2 {
+  margin-top: 14px;
+}
+.pb-1 {
+  margin-bottom: 7px;
+}
+.pb-2 {
+  margin-bottom: 14px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.flex {
+  display: flex !important;
+}
+
+.items-center {
+  align-items: center !important;
+}
+.items-end {
+  align-items: end !important;
+}
+.items-start {
+  align-items: start !important;
+}
+
+.justify-center {
+  justify-content: center !important;
+}
+
+.space-between {
+  justify-content: space-between !important;
+}
+.justify-end {
+  justify-content: end !important;
+}
+.justify-start {
+  justify-content: start !important;
+}
+.text-center {
+  text-align: center !important;
+}
+
+.min-height {
+  min-height: 100vh;
+}
+
+.w-full {
+  width: 100% !important;
+}
+.max-w-full {
+  max-width: 100% !important;
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 0;
+  text-transform: capitalize;
+  font-size: 19px;
+  font-weight: 400;
 }
