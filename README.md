@@ -8,6 +8,29 @@ This application is designed to efficiently manage employee shifts. The backend 
 - **GitHub Backend Code:** [GitHub - Backend](https://github.com/dev-rakibul1/managing-employee-shifts-backend-with-TS)
 - **GitHub Front-end Code:** [GitHub - Frontend](https://github.com/dev-rakibul1/managing-employee-shifts-front-end)
 
+<!-- Your existing API endpoint documentation here -->
+
+#### Role-based Login Credentials
+
+1. **Administrator**
+
+   - Email: fl.rakibul@gmail.com
+   - Password: Pass17452012
+   - Role: administrator
+
+2. **Supervisor**
+
+   - Email: abir@hassan.com
+   - Password: Pass17452012
+   - Role: supervisor
+
+3. **Employee**
+   - Email: rimi@akter.com
+   - Password: Pass17452012
+   - Role: employee
+
+<!-- Continue with your existing documentation -->
+
 ## API Endpoints
 
 ### Step 01: Auth
