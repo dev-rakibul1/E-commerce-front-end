@@ -72,7 +72,7 @@ const ChangePassword = () => {
     };
 
     if (validateForm()) {
-      const url = `http://localhost:5000/api/v1/employee/password-change/${id}`;
+      const url = `https://mes-pi.vercel.app/api/v1/employee/password-change/${id}`;
 
       try {
         setLoading(true);

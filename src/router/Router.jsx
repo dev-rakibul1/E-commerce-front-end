@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       {
         path: "/edit-profile/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/employee/${params.id}`, {
+          fetch(`https://mes-pi.vercel.app/api/v1/employee/${params.id}`, {
             headers: {
               authorization: `${localStorage.getItem("accessToken")}`,
               "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
       {
         path: "/details/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/employee/${params.id}`, {
+          fetch(`https://mes-pi.vercel.app/api/v1/employee/${params.id}`, {
             headers: {
               authorization: `${localStorage.getItem("accessToken")}`,
               "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
       {
         path: "/update/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/employee/${params.id}`, {
+          fetch(`https://mes-pi.vercel.app/api/v1/employee/${params.id}`, {
             headers: {
               authorization: `${localStorage.getItem("accessToken")}`,
               "Content-Type": "application/json",
@@ -87,7 +87,7 @@ const router = createBrowserRouter([
       {
         path: "/create-shift/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/employee/${params?.id}`, {
+          fetch(`https://mes-pi.vercel.app/api/v1/employee/${params?.id}`, {
             headers: {
               authorization: `${localStorage.getItem("accessToken")}`,
               "Content-Type": "application/json",

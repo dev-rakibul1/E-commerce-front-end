@@ -7,7 +7,7 @@ const getToken = () => {
 export const shiftApiSlice = createApi({
   reducerPath: "shift-api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/",
+    baseUrl: "https://mes-pi.vercel.app/api/v1/",
     headers: {
       Authorization: `${getToken()}`,
     },

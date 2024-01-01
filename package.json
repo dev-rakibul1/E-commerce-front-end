@@ -1,6 +1,7 @@
 {
   "name": "employee-shift-fe",
   "version": "0.1.0",
+  "author": "Rakibul Islam",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
