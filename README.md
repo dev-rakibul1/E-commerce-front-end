@@ -133,4 +133,24 @@ This application is designed to efficiently manage employee shifts. The backend 
      }
      ```
 
-Feel free to replace the content with your project-specific information and details.
+### Frontend
+
+The frontend is developed using React, Redux, and Ant Design. It provides an intuitive and visually appealing user interface. The application is fully responsive for a seamless experience on every device.
+
+#### Setup
+
+1. Clone the [Frontend Repository](https://github.com/dev-rakibul1/managing-employee-shifts-front-end).
+2. Run `npm install` to install dependencies.
+3. Run `npm start` to start the development server.
+
+### Backend Pagination, Filter, Search, Sort, Limit (Incomplete)
+
+The backend supports pagination, filtering, searching, sorting, and limiting functionality, providing robust features for managing employee data efficiently.
+
+Feel free to contribute to completing the integration with the frontend.
+
+## Contributing
+
+Contributions are welcome! If you find issues or have suggestions, please open an issue on the respective GitHub repositories.
+
+Thank you for using Managing Employee Shifts!
