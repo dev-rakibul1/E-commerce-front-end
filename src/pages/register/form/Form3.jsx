@@ -66,9 +66,7 @@ const Form3 = (payload) => {
               name="password"
               value={formData.password}
               onChange={handleInputFields}
-              className={`register-icons ${
-                errors.password ? "warngin-border" : ""
-              }`}
+              className={` ${errors.password ? "warngin-border" : ""}`}
             />
             <label
               htmlFor="password"

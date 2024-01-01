@@ -1,5 +1,6 @@
 import { Button, Col, DatePicker, Row, Space, TimePicker } from "antd";
 import React, { useEffect, useState } from "react";
+import { RiArrowGoBackLine } from "react-icons/ri";
 import { useLoaderData, useParams } from "react-router-dom";
 import { useCreateEmployeeShiftSlotMutation } from "../../redux/api/shiftApiSlice";
 import AlertMessage from "../../shared/alert/Alert";
@@ -22,7 +23,6 @@ const CreateShiftSlot = () => {
 
   useEffect(() => {
     if (isError) {
-      console.log(error?.data?.errorMessages);
       setErrors(error?.data?.message);
     } else if (error?.data?.errorMessages) {
       error?.data?.errorMessages?.map((data) => setErrors(data));
@@ -46,8 +46,6 @@ const CreateShiftSlot = () => {
     });
   };
 
-  console.log(errors);
-
   // Time and date handle
   const handleEmployeeStartTime = (value, dateString) => {
     setStartTimes(dateString);
@@ -62,6 +60,12 @@ const CreateShiftSlot = () => {
 
   return (
     <div>
+      <div className="topbar">
+        <button className="action-button" onClick={() => window.history.back()}>
+          <RiArrowGoBackLine className="mr-1" /> Back
+        </button>
+      </div>
+
       {isSuccess && (
         <AlertMessage
           message="Employee shift created success!"

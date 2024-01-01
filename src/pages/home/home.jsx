@@ -4,16 +4,22 @@ import {
   FaCalendar,
   FaClock,
   FaEnvelope,
+  FaSignOutAlt,
   FaUser,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../components/authProvider/AuthProvider";
+import { useLogoutEmployeeQuery } from "../../redux/api/employeeApiSlice";
 import { useShiftFilterByEmployeeQuery } from "../../redux/api/shiftApiSlice";
 import Spinner from "../../shared/spinner/Spinner";
 import "./Home.css";
+const randomSeed = Math.floor(Math.random() * 1000);
+const imageUrl = `https://picsum.photos/seed/${randomSeed}/200/300`;
 
 const Home = () => {
   const { employee, isLoading: authLoading } = useContext(AuthContext);
   const [errors, setErrors] = useState("");
+  const navigate = useNavigate();
 
   // console.log("first", employee?.data?._id);
 
@@ -23,12 +29,15 @@ const Home = () => {
   const { data, error, isLoading, isError, isSuccess } =
     useShiftFilterByEmployeeQuery(id, {
       refetchOnMountOrArgChange: true,
-      pollingInterval: 30000,
     });
+  const {
+    data: logoutData,
+    isLoading: logoutLoading,
+    isError: logoutError,
+  } = useLogoutEmployeeQuery();
 
   useEffect(() => {
     if (isError) {
-      console.log(error?.data);
       error?.data?.errorMessages?.map((data) => setErrors(data));
     } else {
       setErrors("");
@@ -38,13 +47,28 @@ const Home = () => {
   const employeeShift = data?.data;
   // console.log(employeeShift);
 
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem("accessToken");
+      // setEmployee(null);
+      navigate("/auth/login");
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <div className="flex-center flex-col">
       <h1 className="dashboard-employee-title">Welcome from Dashboard</h1>
 
       <div className="flex-center flex-col">
         <img
-          src={employeeInfo?.profilePicture}
+          src={
+            employeeInfo?.profilePicture
+              ? employeeInfo?.profilePicture
+              : imageUrl
+          }
           style={{
             maxWidth: "100%",
             width: "150px",
@@ -52,7 +76,7 @@ const Home = () => {
             objectFit: "cover",
             borderRadius: "100%",
           }}
-          alt=""
+          alt="profile-img"
         />
 
         {authLoading ? (
@@ -63,14 +87,27 @@ const Home = () => {
           <article className="user-info">
             <h3>
               <FaUser />
-              {`${employeeInfo?.firstName} ${employeeInfo?.middleName} ${employeeInfo?.lastName}`}
+
+              {!(
+                employeeInfo?.firstName ||
+                employeeInfo?.middleName ||
+                employeeInfo?.lastName
+              )
+                ? "Placeholder name"
+                : `${employeeInfo?.firstName} ${employeeInfo?.middleName} ${employeeInfo?.lastName}`}
             </h3>
             <ul>
               <li>
-                <FaBriefcase /> Role: {employeeInfo?.role}
+                <FaBriefcase /> Role:{" "}
+                {employeeInfo?.role
+                  ? employeeInfo?.role
+                  : "Placeholder employee"}
               </li>
               <li>
-                <FaEnvelope /> Email: {employeeInfo?.email}
+                <FaEnvelope /> Email:{" "}
+                {employeeInfo?.email
+                  ? employeeInfo?.email
+                  : "placeholder@.info.com"}
               </li>
 
               {isLoading ? (
@@ -91,6 +128,10 @@ const Home = () => {
                     {employeeShift?.date
                       ? employeeShift?.date
                       : "update time..."}
+                  </li>
+                  <li style={{ cursor: "pointer" }} onClick={handleLogout}>
+                    <FaSignOutAlt />
+                    Logout
                   </li>
                 </div>
               )}

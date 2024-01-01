@@ -1,8 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const getToken = () => {
+  return localStorage.getItem("accessToken");
+};
+
 export const shiftApiSlice = createApi({
   reducerPath: "shift-api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:5000/api/v1/",
+    headers: {
+      Authorization: `${getToken()}`,
+    },
+  }),
   tagTypes: ["shift"],
   endpoints: (builder) => ({
     // Get employee
@@ -23,7 +32,6 @@ export const shiftApiSlice = createApi({
 
     shiftFilterByEmployee: builder.query({
       query: (id) => {
-        console.log("Querying with ID:", id);
         return `/shift/filter-by-employee/${id}`;
       },
       providesTags: ["shift"],

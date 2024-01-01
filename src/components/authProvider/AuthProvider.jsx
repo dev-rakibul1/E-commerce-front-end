@@ -7,21 +7,38 @@ const AuthProvider = ({ children }) => {
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const authToken = localStorage.getItem("accessToken"); // Assuming you store the token in localStorage
+  const authToken = localStorage.getItem("accessToken");
 
   const { data, isLoading } = useGetAuthQuery(
     {
       refetchOnMountOrArgChange: true,
-      pollingInterval: 30000,
+      // pollingInterval: 30000,
     },
     {
       headers: {
-        Authorization: `Bearer ${authToken}`, // Include the token in the Authorization header
+        Authorization: `${authToken}`,
         "Content-Type": "application/json",
       },
     }
   );
+
+  // useEffect(() => {
+  //   if (isLoading) {
+  //     return;
+  //   }
+  //   if (loading) {
+  //     return;
+  //   }
+
+  //   if (data) {
+  //     setEmployee(data);
+  //     setIsAuthenticated(true);
+  //   } else {
+  //     setIsAuthenticated(false);
+  //   }
+
+  //   setLoading(false);
+  // }, [data, isLoading, loading]);
 
   useEffect(() => {
     if (isLoading) {
@@ -44,6 +61,7 @@ const AuthProvider = ({ children }) => {
     isLoading,
     setLoading,
     isAuthenticated,
+    setEmployee,
   };
 
   return (

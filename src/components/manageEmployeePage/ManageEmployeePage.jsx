@@ -1,11 +1,13 @@
-import { Col, Row } from "antd";
-import React, { useContext } from "react";
+import { Col, Modal, Row } from "antd";
+import React, { useContext, useState } from "react";
 import {
   RiArrowGoBackLine,
   RiDeleteBinLine,
   RiPencilLine,
 } from "react-icons/ri";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { useDeleteEmployeeMutation } from "../../redux/api/employeeApiSlice";
+import AlertMessage from "../../shared/alert/Alert";
 import { AuthContext } from "../authProvider/AuthProvider";
 import "./ManageEmployeePage.css";
 
@@ -14,11 +16,56 @@ const ManageEmployeePage = () => {
   const data = manageEmployeeData?.data;
   const { employee } = useContext(AuthContext);
   const auth = employee?.data;
+  const [handleDeleteErr, setHandleDeleteErr] = useState("");
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteEmployee, { isLoading }] = useDeleteEmployeeMutation({
+    refetchOnMountOrArgChange: true,
+  });
 
-  // console.log(data);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = async () => {
+    await handleDelete();
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const result = await deleteEmployee(data?._id);
+      setIsModalOpen(false);
+      if (result.error) {
+        result.error?.data?.errorMessages.map((err) => setHandleDeleteErr(err));
+
+        setIsModalOpen(false);
+      } else {
+        setHandleDeleteErr("Employee deleted successfully");
+        setIsModalOpen(false);
+        navigate(-1);
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:");
+    }
+  };
 
   return (
     <div className="user-details-container">
+      {handleDeleteErr && <AlertMessage message={handleDeleteErr?.message} />}
+      {/* Modal */}
+      <Modal
+        title={`Delete ${data?.firstName} ${data?.middleName} ${data?.lastName} `}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        Are you sure delete this employee!
+      </Modal>
+
       {/* Topbar */}
       <div className="topbar">
         <Link
@@ -39,11 +86,9 @@ const ManageEmployeePage = () => {
             </button>
           </Link>
           {auth?.role === "administrator" && (
-            <Link to={`/delete/${data?._id}`}>
-              <button className="action-button px-2">
-                <RiDeleteBinLine className="mr-1" /> Delete
-              </button>
-            </Link>
+            <button className="action-button px-2" onClick={showModal}>
+              <RiDeleteBinLine className="mr-1" /> Delete
+            </button>
           )}
         </div>
       </div>
@@ -54,7 +99,7 @@ const ManageEmployeePage = () => {
         <div className="flex items-center justify-start">
           <img src={data?.profilePicture} className="profile-pic mt-2" alt="" />
           <div className="ml-2">
-            <h3>Role: {data?.role}</h3>
+            <h3 className="capitalize">Role: {data?.role}</h3>
             <h4 className="mt-1">
               Name: {`${data?.firstName} ${data?.middleName} ${data?.lastName}`}
             </h4>
@@ -98,7 +143,11 @@ const ManageEmployeePage = () => {
           <Col xs={24} sm={24} md={24} lg={8} xl={8}>
             <div className="mt-2">
               <h4>Date</h4>
-              <p style={{ fontWeight: "400" }}>{data?.shift[0]?.date}</p>
+              <p style={{ fontWeight: "400" }}>
+                {data?.shift[0]?.date
+                  ? data?.shift[0]?.date
+                  : "No date available"}
+              </p>
             </div>
           </Col>
         </Row>

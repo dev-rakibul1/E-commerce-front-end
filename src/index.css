@@ -137,7 +137,7 @@
   justify-content: center !important;
 }
 
-.space-between {
+.justify-between {
   justify-content: space-between !important;
 }
 .justify-end {
@@ -170,4 +170,12 @@
   text-transform: capitalize;
   font-size: 19px;
   font-weight: 400;
+}
+
+.warning-border {
+  border: 1px solid red !important;
+}
+
+.warning-text {
+  color: red !important;
 }

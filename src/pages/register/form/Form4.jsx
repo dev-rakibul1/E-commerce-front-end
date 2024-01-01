@@ -11,7 +11,7 @@ const Form4 = (payload) => {
   const navigate = useNavigate();
   const [visiblePass, setVisiblePass] = useState(false);
   // Get, POST method form Redux
-  const [createEmployee, { error, isLoading, isError, isSuccess }] =
+  const [createEmployee, { error, isLoading, isError, isSuccess, data }] =
     useCreateEmployeeMutation({
       refetchOnMountOrArgChange: true,
       pollingInterval: 30000,
@@ -25,7 +25,17 @@ const Form4 = (payload) => {
     }
   }, [isError, error, setErrors]);
 
-  const handleVisablePass = () => {
+  useEffect(() => {
+    if (isSuccess && data) {
+      const token = data?.data?.accessToken;
+      localStorage.setItem("accessToken", token);
+
+      navigate("/");
+      window.location.reload();
+    }
+  }, [isSuccess, data, navigate]);
+
+  const handleVisiblePass = () => {
     setVisiblePass(!visiblePass);
   };
 
@@ -35,9 +45,7 @@ const Form4 = (payload) => {
 
   const handleUserFormSubmit = async (e) => {
     e.preventDefault();
-
     createEmployee(formData);
-    console.log("User form submit___:", formData);
   };
 
   if (isSuccess) {
@@ -289,7 +297,7 @@ const Form4 = (payload) => {
 
                 <span
                   style={{ color: "#040", fontSize: "25px", cursor: "pointer" }}
-                  onClick={handleVisablePass}
+                  onClick={handleVisiblePass}
                 >
                   {visiblePass ? <VscEye /> : <VscEyeClosed />}
                 </span>

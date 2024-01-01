@@ -9,8 +9,6 @@ const ProfileAccount = () => {
   const { employee } = useContext(AuthContext);
   const employeeInfo = employee?.data;
 
-  console.log(employeeInfo);
-
   const randomSeed = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/seed/${randomSeed}/200/300`;
 

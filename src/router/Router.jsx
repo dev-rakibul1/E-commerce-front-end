@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import EditEmployee from "../components/editEmployee/EditEmployee";
 import EditProfile from "../components/editProfile/EditProfile";
 import ManageEmployeePage from "../components/manageEmployeePage/ManageEmployeePage";
+import PrivateRoute from "../components/privateRoute/PrivateRoute";
 import DashboardLayout from "../layout/dashboardLayout/DashboardLayout";
 import RegisterLayout from "../layout/registerLayout/RegisterLayout";
 import ProfileAccount from "../pages/ProfileAccount/ProfileAccount";
@@ -17,7 +18,11 @@ import Register from "../pages/register/Register";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/",

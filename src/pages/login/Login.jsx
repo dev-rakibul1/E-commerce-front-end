@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { Button, Divider } from "antd";
-import axios from "axios";
 import { AiOutlineUser } from "react-icons/ai";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginEmployeeMutation } from "../../redux/api/employeeApiSlice";
+import AlertMessage from "../../shared/alert/Alert";
 import SmallSpinner from "../../shared/spinner/SmallSpiner";
 import "./Login.css";
-
-const isLoading = false;
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,14 +32,10 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess && data) {
-      // Assuming your token is available in the response data
       const token = data?.data?.accessToken;
-      console.log("Login successful! Token:", token);
       localStorage.setItem("accessToken", token);
-      axios.defaults.headers.common["authorization"] = `${token}`;
-
-      // You can also perform navigation or other actions here
-      // navigate("/"); // Redirect to the home page, for example
+      navigate("/");
+      window.location.reload();
     }
   }, [isSuccess, data, navigate]);
 
@@ -92,13 +86,18 @@ const Login = () => {
     }
   };
 
-  // if (isSuccess) {
-  //   navigate("/");
-  // }
-
   return (
     <>
-      <div className="login" style={{ maxWidth: "600px" }}>
+      <div className="login" style={{ maxWidth: "450px" }}>
+        {isSuccess && (
+          <AlertMessage
+            message="Login success!"
+            type="success"
+            showIcon="showIcon"
+            background="green"
+          />
+        )}
+
         <div className="login-wrapper">
           <h4
             style={{

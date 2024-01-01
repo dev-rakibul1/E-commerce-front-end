@@ -1,9 +1,5 @@
 import React, { useContext } from "react";
-import {
-  RiArrowGoBackLine,
-  RiDeleteBinLine,
-  RiPencilLine,
-} from "react-icons/ri";
+import { RiArrowGoBackLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../components/authProvider/AuthProvider";
 import { useGetSupervisorQuery } from "../../redux/api/employeeApiSlice";
@@ -41,20 +37,6 @@ const ManageSupervisors = () => {
             >
               <RiArrowGoBackLine className="mr-1" /> Back
             </button>
-            <div className="topbar">
-              <Link to={`/update/${data?._id}`}>
-                <button className="action-button px-2">
-                  <RiPencilLine className="mr-1" /> Update
-                </button>
-              </Link>
-              {auth?.role === "administrator" && (
-                <Link to={`/delete/${data?._id}`}>
-                  <button className="action-button px-2">
-                    <RiDeleteBinLine className="mr-1" /> Delete
-                  </button>
-                </Link>
-              )}
-            </div>
           </div>
           <h1 className="title">Manage Supervisor</h1>
           <table className="manage-table">

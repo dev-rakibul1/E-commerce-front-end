@@ -164,7 +164,7 @@ const Register = () => {
   return (
     <div
       style={{
-        maxWidth: "600px",
+        maxWidth: "450px",
         background: "#fff",
       }}
       className="register"
@@ -183,7 +183,7 @@ const Register = () => {
           Register now
         </Divider>
 
-        <div className="">
+        <div className="flex-center">
           <span>Step </span>
           <span className="font-semibold text-gray-400 text-base py-2 inline-block">
             {totalForm[totalForm.length - 1]}

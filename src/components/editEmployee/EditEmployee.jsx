@@ -1,11 +1,12 @@
-import { Button, Col, DatePicker, Input, Row, Space, TimePicker } from "antd";
+import { Button, Col, Input, Row } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { RiArrowGoBackLine } from "react-icons/ri";
+import { useLoaderData } from "react-router-dom";
 import { useUpdateEmployeeMutation } from "../../redux/api/employeeApiSlice";
-import { useUpdateEmployeeShiftMutation } from "../../redux/api/shiftApiSlice";
 import AlertMessage from "../../shared/alert/Alert";
 import SmallSpinner from "../../shared/spinner/SmallSpiner";
 import { AuthContext } from "../authProvider/AuthProvider";
+import UpdateEmployeeShift from "./UpdateEmployeeShift/UpdateEmployeeShift";
 // const { RangePicker } = DatePicker;
 
 const EditEmployee = () => {
@@ -15,48 +16,20 @@ const EditEmployee = () => {
   const employeeInfo = datas?.data;
   const [newEntry, setNewEntry] = useState(employeeInfo);
   const [errors, setErrors] = useState("");
-  const [startTimes, setStartTimes] = useState("");
-  const [endTimes, setEndTimes] = useState("");
-  const [employeeDate, setEmployeeDate] = useState("");
 
   // Employee update
   const [updateEmployee, { error, isLoading, isError, isSuccess }] =
     useUpdateEmployeeMutation();
 
-  // Employee shift update
-  const [
-    updateEmployeeShift,
-    {
-      error: shiftErr,
-      isLoading: shiftLoading,
-      isError: shiftError,
-      isSuccess: shiftSuccess,
-    },
-  ] = useUpdateEmployeeShiftMutation();
-
   useEffect(() => {
     if (isError) {
-      console.log(error);
       error?.data?.errorMessages?.map((data) => setErrors(data));
     } else {
       setErrors("");
     }
+  }, [isError, error, setErrors]);
 
-    // if (shiftError) {
-    //   shiftErr?.data?.errorMessages?.map((data) => setErrors(data));
-    // } else {
-    //   setErrors("");
-    // }
-
-    if (shiftError) {
-      console.log(shiftErr);
-      setErrors(shiftErr?.data?.message);
-    } else if (shiftErr?.data?.errorMessages) {
-      shiftErr?.data?.errorMessages?.map((data) => setErrors(data));
-    } else {
-      setErrors("");
-    }
-  }, [shiftError, shiftErr, isError, error, setErrors]);
+  console.log(errors);
 
   const handleInputUpdate = async (event) => {
     event.preventDefault();
@@ -78,25 +51,6 @@ const EditEmployee = () => {
     await updateEmployee({
       id: employeeInfo?._id,
       ...updateData,
-    });
-
-    console.log(updateData);
-  };
-
-  // console.log(employeeInfo?._id);
-
-  const handleEmployeeSlotUpdate = async (event) => {
-    event.preventDefault();
-
-    const slotUpdateData = {
-      startTime: startTimes,
-      endTime: endTimes,
-      date: employeeDate,
-    };
-
-    await updateEmployeeShift({
-      id: employeeInfo?.shift[0]?._id,
-      ...slotUpdateData,
     });
   };
 
@@ -121,29 +75,20 @@ const EditEmployee = () => {
     }
   };
 
-  // Time and date handle
-  const handleEmployeeStartTime = (value, dateString) => {
-    setStartTimes(dateString);
-  };
-  const handleEmployeeEndTime = (value, dateString) => {
-    setEndTimes(dateString);
-  };
-
-  const handleEmployeeDate = (time, timeString) => {
-    setEmployeeDate(timeString);
-  };
-
   // console.log(employeeInfo?._id);
 
   return (
     <div className="" style={{ width: "100%" }}>
-      {(shiftSuccess || isSuccess) && (
+      {/* Topbar */}
+      <div className="topbar">
+        <button className="action-button" onClick={() => window.history.back()}>
+          <RiArrowGoBackLine className="mr-1" /> Back
+        </button>
+      </div>
+
+      {isSuccess && (
         <AlertMessage
-          message={
-            shiftSuccess
-              ? "Employee shift update success!"
-              : "Employee updated success!"
-          }
+          message="Employee updated success!"
           type="success"
           showIcon="showIcon"
           background="green"
@@ -294,76 +239,7 @@ const EditEmployee = () => {
       </form>
 
       {/* Employee slot update */}
-      {auth?.role === "administrator" || auth?.role === "supervisor" ? (
-        !employeeInfo?.shift.length ? (
-          <div className="text-center my-2">
-            <h3 className="">
-              This employee shift slot is not available. Please create a shift
-              slot.
-            </h3>
-            <Link to={`/create-shift/${employeeInfo?._id}`}>
-              <Button type="primary" className="mt-1">
-                Create a shift slot
-              </Button>
-            </Link>
-          </div>
-        ) : (
-          <form
-            onSubmit={handleEmployeeSlotUpdate}
-            style={{ marginTop: "70px" }}
-          >
-            <h1 className="title">
-              Update{" "}
-              {`${employeeInfo?.firstName} ${employeeInfo?.middleName} ${employeeInfo?.lastName}'s shift slot`}
-            </h1>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Row gutter={[16, 16]}>
-                <Col sm={12} md={12} lg={8}>
-                  <Space direction="vertical" size={12}>
-                    <TimePicker
-                      placeholder="Start Time"
-                      format="h:mm a"
-                      onChange={handleEmployeeStartTime}
-                    />
-                  </Space>
-                </Col>
-
-                <Col sm={12} md={12} lg={8}>
-                  <Space direction="vertical" size={12}>
-                    <TimePicker
-                      placeholder="End Time"
-                      format="h:mm a"
-                      onChange={handleEmployeeEndTime}
-                    />
-                  </Space>
-                </Col>
-                <Col sm={12} md={12} lg={8}>
-                  <DatePicker
-                    format="DD-MM-YYYY"
-                    onChange={handleEmployeeDate}
-                  />
-                </Col>
-              </Row>
-            </div>
-
-            <div className="mt-2 flex-center">
-              {shiftLoading ? (
-                <SmallSpinner />
-              ) : (
-                <Button type="primary" htmlType="submit">
-                  Update shift
-                </Button>
-              )}
-            </div>
-          </form>
-        )
-      ) : null}
+      <UpdateEmployeeShift editInfo={datas} />
     </div>
   );
 };

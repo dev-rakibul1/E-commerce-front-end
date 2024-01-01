@@ -166,12 +166,13 @@ const EditProfile = () => {
               />
             </Col>
 
-            <Col sm={12} md={12} lg={8}>
+            <Col sm={12} md={12} lg={8} title="Read Only">
               <Input
                 name="email"
                 placeholder="Email address"
                 onChange={handleInputChange}
                 defaultValue={employeeInfo?.email}
+                readOnly
               />
             </Col>
 

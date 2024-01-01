@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import {
-  RiArrowGoBackLine,
-  RiDeleteBinLine,
-  RiPencilLine,
-} from "react-icons/ri";
+import axios from "axios";
+import React, { useContext, useEffect } from "react";
+import { RiArrowGoBackLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../components/authProvider/AuthProvider";
 import { useGetEmployeeQuery } from "../../redux/api/employeeApiSlice";
@@ -19,8 +16,28 @@ const ManageEmployee = () => {
   });
 
   const allEmployee = data?.data;
-  // const id = allEmployee;
-  // console.log(allEmployee);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+
+    if (token) {
+      // Set up Axios interceptor to attach token to every outgoing request
+      const requestInterceptor = axios.interceptors.request.use(
+        (config) => {
+          config.headers.Authorization = `${token}`;
+          return config;
+        },
+        (error) => {
+          return Promise.reject(error);
+        }
+      );
+
+      // Clean up the interceptor when the component is unmounted
+      return () => {
+        axios.interceptors.request.eject(requestInterceptor);
+      };
+    }
+  }, [auth]);
 
   return (
     <div style={{ width: "100%" }}>
@@ -42,20 +59,6 @@ const ManageEmployee = () => {
             >
               <RiArrowGoBackLine className="mr-1" /> Back
             </button>
-            <div className="topbar">
-              <Link to={`/update/${data?._id}`}>
-                <button className="action-button px-2">
-                  <RiPencilLine className="mr-1" /> Update
-                </button>
-              </Link>
-              {auth?.role === "administrator" && (
-                <Link to={`/delete/${data?._id}`}>
-                  <button className="action-button px-2">
-                    <RiDeleteBinLine className="mr-1" /> Delete
-                  </button>
-                </Link>
-              )}
-            </div>
           </div>
 
           <h1 className="title">Manage employee</h1>
