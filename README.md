@@ -177,3 +177,4 @@ Feel free to contribute to completing the integration with the frontend.
 Contributions are welcome! If you find issues or have suggestions, please open an issue on the respective GitHub repositories.
 
 Thank you for using Managing Employee Shifts!
+# E-commerce-front-end

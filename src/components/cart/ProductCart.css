@@ -1,0 +1,13 @@
+.product-cart-wrap {
+  position: relative;
+}
+.product-cart {
+  position: absolute;
+  top: 100%;
+  background-color: #fff;
+  width: 308px;
+  right: -100%;
+}
+.product-cart {
+  color: #000;
+}

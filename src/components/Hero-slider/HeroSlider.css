@@ -1,0 +1,62 @@
+.slider-bg {
+  background-color: green;
+  width: 100%;
+  height: 450px;
+  display: inline-block;
+}
+
+.slide-items {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  height: 100%;
+}
+.slide-items::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #0000004f;
+}
+
+.slide-items img {
+  width: 100%;
+  max-width: 100%;
+  height: 80vh;
+  object-fit: cover;
+}
+
+.hero-article-area {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 60%;
+  height: 100%;
+  flex-direction: column;
+  color: white;
+}
+
+.hero-article-area h1 {
+  font-size: 45px;
+  font-weight: 600;
+  font-family: "Libre Baskerville", serif !important;
+}
+
+.hero-article-area button {
+  font-size: 22px;
+  font-weight: 600;
+  background-color: transparent;
+  border: 3px solid #fff;
+  outline: none;
+  cursor: pointer;
+  padding: 8px 23px;
+  color: #fff;
+  margin-top: 15px;
+}

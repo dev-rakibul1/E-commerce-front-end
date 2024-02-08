@@ -1,0 +1,162 @@
+.product-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.product-items {
+  position: relative;
+}
+.product-items::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.product-items:hover.product-items::before {
+  opacity: 0.8;
+  visibility: visible;
+}
+
+.product-image {
+  position: relative;
+  background: rgba(182, 182, 182, 0.5);
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+}
+
+.product-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* padding: 15px; */
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.product-items:hover .product-hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-details {
+  text-align: center;
+  color: white;
+  width: 100%;
+  padding: 15px;
+}
+.product-details h4 {
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+}
+.product-details span {
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  display: inline-block;
+  margin-top: 3px;
+}
+.product-details p {
+  color: #000;
+}
+
+/* Add any additional styling as needed */
+
+.product-display {
+  background: url("https://i.ibb.co/ZBkxd4g/display-watch.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 60vh;
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  background-attachment: fixed;
+  padding: 15px;
+}
+.product-display::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.product-display h1 {
+  font-weight: 900;
+  color: #fff;
+  font-size: 80px;
+}
+
+.product-details-content {
+  padding-top: 50px;
+}
+
+.product-details-content ul li {
+  list-style: none;
+  font-size: 20px;
+}
+.product-details-content ul li strong {
+  font-weight: 600;
+}
+
+.product-details-content h2 {
+  font-size: 25px;
+}
+
+.product-quantity-button {
+  width: 20px;
+  height: 20px;
+  background: #ddd;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  padding: 15px;
+}
+
+.select-color-options span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin: 5px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+}
+
+.select-color-options span:first-child {
+  background-color: black;
+}
+.select-color-options span:nth-child(2) {
+  background-color: green;
+}
+.select-color-options span:nth-child(3) {
+  background-color: blue;
+}
+.select-color-options span:last-child {
+  background-color: orange;
+}
